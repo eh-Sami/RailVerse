@@ -1,0 +1,5 @@
+101,Padma Express,Dhaka,Rajshahi,2025-07-10 08:00,2025-07-10 14:00,On Time,250.0,5
+102,Sonar Bangla,Dhaka,Chittagong,2025-07-11 09:30,2025-07-11 14:30,Delayed,300.0,6
+103,Silk City Express,Dhaka,Pabna,2025-07-12 07:00,2025-07-12 11:00,On Time,220.0,7
+104,Subarna Express,Chittagong,Dhaka,2025-07-13 17:00,2025-07-13 22:00,On Time,280.0,8
+105,Lalmoni Express,Dhaka,Lalmonirhat,2025-07-14 06:00,2025-07-14 13:00,Cancelled,270.0,3

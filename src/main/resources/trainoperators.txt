@@ -1,0 +1,2 @@
+1,Operator1,2345678901,operator1@railway.com,pass123,101,Dhaka,Bangladesh
+2,Operator2,2335678901,ops@railway.com,ops456,102,Khulna,Bangladesh

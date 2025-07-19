@@ -1,0 +1,10 @@
+1001,Aditya,1947382910,aditya@gmail.com,1234,100000.0,West Palashi, BUET
+2002,Rahul,8801927435,rahul@gmail.com,abcd,50.0,Dhanmondi, Dhaka
+3003,Sadia,1902837465,sadia@mail.com,s123,0.0,Chowdhurypara, Malibagh, Dhaka
+4004,Tanvir,1902837466,tanvir@gmail.com,pass,100.0,Mirpur-10, Dhaka
+5005,Nadia,1902837467,nadia@mail.com,nad123,25.0,Bashundhara Residential Area, Dhaka
+6006,Hasib,1902837468,hasib@bd.com,hpass,0.0,Uttara, Dhaka
+7007,Farah,1902837469,farah@bd.com,ffpass,0.0,Gulshan, Dhaka
+8008,Zahid,1902837470,zahid@bd.com,zpass,10.0,North Shahjahanpur, Dhaka
+9009,Afia,1902837471,afia@bd.com,aaa,0.0,Motijheel, Dhaka
+10010,Mehedi,1902837472,mehedi@bd.com,meh123,0.0,Rampura, Dhaka
