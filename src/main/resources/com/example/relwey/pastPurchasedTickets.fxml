@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.relwey.ViewPastTicketsController">
+    <children>
+        <Label layoutX="380.0" layoutY="26.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Your Previous Tickets" textAlignment="JUSTIFY" />
+
+        <TableView fx:id="ticketTable" layoutX="55.0" layoutY="70.0" prefHeight="400.0" prefWidth="850.0">
+            <columns>
+                <TableColumn fx:id="trainNameCol" prefWidth="145.0" text="Train Name" />
+                <TableColumn fx:id="trainIdCol" prefWidth="88.0" text="Train ID" />
+                <TableColumn fx:id="seatCol" prefWidth="84.0" text="Seat" />
+                <TableColumn fx:id="departureTimeCol" prefWidth="135.0" text="Departure Time" />
+                <TableColumn fx:id="departurePlaceCol" prefWidth="153.0" text="Departure Station" />
+                <TableColumn fx:id="arrivalPlaceCol" prefWidth="140.0" text="Arrival Station" />
+                <TableColumn fx:id="priceCol" prefWidth="104.0" text="Price" />
+
+            </columns>
+        </TableView>
+        <Button fx:id="backButton" layoutX="441.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="80.0" text="Back" />
+    </children>
+</AnchorPane>

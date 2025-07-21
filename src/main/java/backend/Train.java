@@ -42,26 +42,31 @@ public class Train {
         this.ticketFilePath = ticketFilePath;
         System.out.println("Train " + name + " created with " + compartmentCount + " compartments." );
         compartments = new ArrayList<>();
-        for (int i = 0; i < compartmentCount; i++) {
-            Ticket[][] compartment = new Ticket[6][4]; // 6 rows, 4 columns
+        if(LocalDateTime.now().isBefore(departureTime)) {
+            for (int i = 0; i < compartmentCount; i++) {
+                Ticket[][] compartment = new Ticket[6][4]; // 6 rows, 4 columns
 
-            for(int row = 0; row < 6; row++) {
-                for(int col = 0; col < 4; col++) {
-                    // Create a new Ticket object for each seat
-                    Ticket ticket = TicketFileHandler.findTicketById(ticketFilePath, String.valueOf(createTicketId(row, col, compartmentCount)));
-                    if(ticket == null) {
-                        // Otherwise, create a new Ticket object)
-                        compartment[row][col] = new Ticket(createTicketId(row, col, compartmentCount), null, this.Id, "" + (char)('A' + i) + (row * 4 + col + 1), null, "Vacant", 0.0, 100.0); // Initialize with null
-                        // Append the ticket to the file
-                        TicketFileHandler.appendTicket(ticketFilePath, compartment[row][col]);
-                    }
-                    else {
-                        compartment[row][col] = ticket;
+                for (int row = 0; row < 6; row++) {
+                    for (int col = 0; col < 4; col++) {
+                        // Create a new Ticket object for each seat
+                        String ticketId = String.valueOf(createTicketId(row, col, i));
+                        Ticket ticket = TicketFileHandler.findTicketById(ticketFilePath, ticketId);
+                        System.out.println(ticketId);
+
+                        if (ticket == null) {
+                            // Otherwise, create a new Ticket object)
+                            compartment[row][col] = new Ticket(createTicketId(row, col, i), 0, this.Id, "" + (char) ('A' + i) + (row * 4 + col + 1), null, "Vacant", 0.0, 100.0); // Initialize with null
+                            // Append the ticket to the file
+                            System.out.println("inside if" + (char)('A' + i));
+                            TicketFileHandler.appendTicket(ticketFilePath, compartment[row][col]);
+                        } else {
+                            compartment[row][col] = ticket;
+                        }
                     }
                 }
+                // Add the compartment to the compartments list
+                compartments.add(compartment);
             }
-            // Add the compartment to the compartments list
-            compartments.add(compartment);
         }
     }
 

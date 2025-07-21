@@ -6,19 +6,52 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TicketFileHandler {
-    public static PassengerService passengerService = null;
     /**
      * Reads tickets from a CSV file and returns a list of Ticket objects.
      *
-     * @param filename the name of the file to read from
+     * @param currfilename the name of the file to read from
      * @return a list of Ticket objects
      * @throws IOException if there is an error reading the file
      */
-    public static List<Ticket> readTickets(String filename, PassengerService passengerService) throws IOException {
+    public static List<Ticket> readTickets(String currfilename, String prevfilename, PassengerService passengerService, TrainService trainService) throws IOException {
+        List<Ticket> ticketList = new ArrayList<>();
+        List<Ticket> linesToKeep = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(currfilename));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            Ticket ticket = Ticket.fromCSV(line, passengerService);
+            if (ticket != null) {
+                LocalDateTime currtime = LocalDateTime.now();
+                LocalDateTime trainTime = trainService.getTrainById(ticket.getTrainId()).getDepartureTime();
+
+                if(currtime.isBefore(trainTime)){
+                    if(ticket.getStatus().equalsIgnoreCase("Cancelled")){
+                        ticket.setStatus("Vacant");
+                        ticket.setPassengerId(0);
+                    }
+                    ticketList.add(ticket);
+                    linesToKeep.add(ticket);
+                }
+                else{
+                    if(ticket.getStatus().equalsIgnoreCase("vacant") || ticket.getStatus().equalsIgnoreCase("cancelled")){
+                        continue;
+                    }
+                    writeTicket(prevfilename, ticket);
+                    System.out.println("triggered");
+                }
+            }
+        }
+        writeTickets(currfilename, linesToKeep);
+        reader.close();
+        return ticketList;
+    }
+
+    public static List<Ticket> readOldTickets(String filename, PassengerService passengerService) throws IOException {
         List<Ticket> ticketList = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
@@ -28,6 +61,7 @@ public class TicketFileHandler {
                 ticketList.add(ticket);
             }
         }
+        reader.close();
         return ticketList;
     }
     /**
@@ -43,6 +77,14 @@ public class TicketFileHandler {
             writer.write(ticket.toCSV());
             writer.newLine();
         }
+        writer.close();
+    }
+
+    public static void writeTicket(String filename, Ticket ticket) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
+        writer.write(ticket.toCSV());
+        writer.newLine();
+        writer.close();
     }
     /**
      * Appends a list of Ticket objects to a CSV file.
@@ -124,17 +166,17 @@ public class TicketFileHandler {
     }
 
     // changed on Friday
-    public static Ticket findTicketById(String filePath, String ticketId) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        public static Ticket findTicketById(String filePath, String ticketId) throws IOException {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().startsWith(ticketId + ",")) {
-                    return Ticket.fromCSV(line, passengerService);
+                    return Ticket.fromCSV(line, null);
                 }
             }
+            reader.close();
+            return null; // Ticket not found
         }
-        return null; // Ticket not found
-    }
 }
 
 

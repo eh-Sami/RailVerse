@@ -89,6 +89,7 @@ import java.time.LocalDate;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("purchasedTickets.fxml"));
             Parent root = loader.load();
+
             ViewTicketsController pTickets = loader.getController();
 
             pTickets.setPassengerService(passengerService);
@@ -110,7 +111,26 @@ import java.time.LocalDate;
     }
 
     private void handleViewHistory() {
-        // TODO: Load history screen
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("pastPurchasedTickets.fxml"));
+            Parent root = loader.load();
+            // TODO: Load history screen
+            ViewPastTicketsController pastTickets = loader.getController();
+
+            pastTickets.setPassengerService(passengerService);
+            pastTickets.setTicketMasterService(ticketMasterService);
+            pastTickets.setTrainOperatorService(trainOperatorService);
+            pastTickets.setTicketService(ticketService);
+            pastTickets.setTrainService(trainService);
+            pastTickets.setPassengerId(p.getId());
+            pastTickets.setPassengerEmail(p.getEmail());
+            pastTickets.loadTickets();
+            Stage stage = (Stage) viewTicketsButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         System.out.println("View History clicked");
     }
 

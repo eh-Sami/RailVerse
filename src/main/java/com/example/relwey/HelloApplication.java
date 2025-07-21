@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
         TrainService trainService = new TrainService("src/main/resources/trains.txt","src/main/resources/tickets.txt");
         PassengerService passengerService = new PassengerService("src/main/resources/passengers.txt", trainService);
-        TicketService ticketService = new TicketService("src/main/resources/tickets.txt", passengerService);
+        TicketService ticketService = new TicketService("src/main/resources/tickets.txt", "src/main/resources/prevtickets.txt", passengerService, trainService);
         TicketMasterService ticketMasterService = new TicketMasterService("src/main/resources/ticketmasters.txt", trainService);
         TrainOperatorService trainOperatorService = new TrainOperatorService("src/main/resources/trainoperators.txt", trainService, ticketMasterService);
 

@@ -6,24 +6,32 @@ import java.util.ArrayList;
 
 public class TicketService {
     private List<Ticket> ticketList;
-    private String filename;
+    private List<Ticket> prevTicketList;
+    private String currfilename;
+    private String prevfilename;
+    TrainService trainService;
+    PassengerService passengerService;
 
     /**
      * Constructor to initialize TicketService with a filename.
      * It reads existing tickets from the file.
      *
-     * @param filename the name of the file containing ticket data
+     * @param currentfilename the name of the file containing ticket data
      * @throws IOException if there is an error reading the file
      */
-    public TicketService(String filename, PassengerService passengerService) throws IOException {
-        this.filename = filename;
-        this.ticketList = TicketFileHandler.readTickets(filename, passengerService);
+    public TicketService(String currentfilename, String previousfilename, PassengerService passengerService, TrainService trainService) throws IOException {
+        this.currfilename = currentfilename;
+        this.prevfilename = previousfilename;
+        this.trainService = trainService;
+        this.passengerService = passengerService;
+        this.ticketList = TicketFileHandler.readTickets(currfilename, prevfilename, passengerService, trainService);
+        this.prevTicketList = TicketFileHandler.readOldTickets(prevfilename, passengerService);
     }
 
     public List<Ticket> getAllTickets() {
         return ticketList;
     }
-
+    public List<Ticket> getAllPrevTickets() {return prevTicketList; }
     private int generateNewTicketId(){
         int maxId = 0;
         for(Ticket ticket : ticketList){
@@ -77,7 +85,7 @@ public class TicketService {
                     System.out.println("Ticket is not booked yet!");
                     return null;
                 }
-                ticket.setStatus("Cancelled");
+                ticket.setStatus("Vacant");
                 found = true;
                 t = ticket;
                 break;
@@ -85,7 +93,7 @@ public class TicketService {
         }
         if(found){
 //            TicketFileHandler.writeTickets(filename, ticketList);
-            TicketFileHandler.updateTicket(filename, ticketId + "", t.toCSV());
+            TicketFileHandler.updateTicket(currfilename, ticketId + "", t.toCSV());
 
             System.out.println("Ticket cancelled successfully!" );
             return t;
@@ -102,6 +110,16 @@ public class TicketService {
             }
         }
         return myTickets;
+    }
+
+    public List<Ticket> getPrevTicketList(int passengerId){
+        List<Ticket> prevTickets = new ArrayList<>();
+        for(Ticket ticket : prevTicketList){
+            if(ticket.getPassengerId() == passengerId){
+                prevTickets.add(ticket);
+            }
+        }
+        return prevTickets;
     }
 
     public void printTicketForUser(int passengerId){

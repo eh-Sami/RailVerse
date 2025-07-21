@@ -101,11 +101,16 @@ public class Passenger extends User{
         }
     }
 
+    public  List<Ticket> viewPastTickets(TicketService ticketService, int passengerId){
+        previousTickets = ticketService.getPrevTicketList(passengerId);
+        return previousTickets;
+    }
 
-    public List<Ticket> viewTickets() {
+    public List<Ticket> viewTickets(TicketService ticketService, int passengerId) {
 //        ticketService.printTicketForUser(id);
         // added by sami
-        return new ArrayList<>(myTickets);
+        myTickets = ticketService.getTicketsForUser(passengerId);
+        return myTickets;
     }
 
     /**
@@ -150,7 +155,8 @@ public class Passenger extends User{
                 }
             }
             if (ticketToCancel != null) {
-                ticketToCancel.setStatus("Cancelled");
+                ticketToCancel.setStatus("vacant");
+                ticketToCancel.setPassengerId(0);
                 int trainId = ticketToCancel.getTrainId();
                 Train train = trainService.getTrainById(trainId);
                 train.cancelTicket(ticketId); // assuming this method exists in TrainService
@@ -222,34 +228,6 @@ public class Passenger extends User{
             PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV()); // assuming this method exists
         } catch (IOException e) {
             throw new IOException("passenger not found");
-        }
-    }
-
-    public void dashboard(TicketService ticketService, TrainService trainService){
-        Scanner sc = new Scanner(System.in);
-        int choice=0;
-        while(choice!=5){
-            System.out.println("Welcome " + name + "!");
-            System.out.println("Passenger Menu:");
-            System.out.println("1. View available trains");
-            System.out.println("2. Book ticket");
-            System.out.println("3. View tickets");
-            System.out.println("4. Cancel ticket");
-            System.out.println("5. Logout");
-
-            System.out.println("Enter your choice: ");
-            choice = sc.nextInt();
-            sc.nextLine();
-
-            switch(choice){
-                case 1:viewAvailableTrains(trainService.getAllTrains());break;
-                case 2:viewAvailableTrains(trainService.getAllTrains());
-//                    bookTicket();break;
-                case 3:viewTickets();break;
-                case 4:cancelTicket(0);break;
-                case 5:break;
-                default:System.out.println("Invalid choice!");break;
-            }
         }
     }
 

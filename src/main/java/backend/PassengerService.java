@@ -16,7 +16,6 @@ public class PassengerService {
 //        this.ticketService = ticketService;
         this.trainService = trainService;
         this.passengerList = PassengerFileHandler.readPassengers(filename, trainService);
-        TicketFileHandler.passengerService = this;
     }
 
     public Passenger signUp(String name, String nid, String email, String address, String password) {

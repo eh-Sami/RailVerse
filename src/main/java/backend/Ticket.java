@@ -17,14 +17,11 @@ public class Ticket{
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Ticket(int ticketId, Passenger passenger, int trainId, String seatNumber, LocalDateTime bookingDate, String status, Double fine, Double price) {
+    public Ticket(int ticketId, int passengerId, int trainId, String seatNumber, LocalDateTime bookingDate, String status, Double fine, Double price) {
         this.ticketId = ticketId;
-        this.assignedPassenger = passenger;
-        if(assignedPassenger != null) { // changed on friday
-            this.passengerId = assignedPassenger.getId();
-        } else {
-            this.passengerId = 0;
-        }
+//        this.assignedPassenger = passenger;
+
+        this.passengerId = passengerId;
         this.trainId = trainId;
         this.seatNumber = seatNumber;
         this.bookingDate = bookingDate;
@@ -74,6 +71,10 @@ public class Ticket{
         this.status = status;
     }
 
+    public void setPassengerId(int passengerId) {
+        this.passengerId = passengerId;
+    }
+
     @Override
     public String toString(){
         String dateStr = (bookingDate != null) ? bookingDate.format(formatter) : "null";
@@ -113,11 +114,6 @@ public class Ticket{
         String status = parts[5];
         double fineAmount = Double.parseDouble(parts[6]);
         double price = Double.parseDouble(parts[7]);
-        Passenger passenger = null;
-        if(passengerService != null) {
-            passenger = passengerService.getPassengerById(passengerId);
-        }
-
-        return new Ticket(ticketId, passenger, trainId, seatNumber, bookingDate, status, fineAmount, price);
+        return new Ticket(ticketId, passengerId, trainId, seatNumber, bookingDate, status, fineAmount, price);
     }
 }

@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import static java.lang.Integer.parseInt;
 
 
-public class ViewTicketsController {
+public class ViewPastTicketsController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, h:mm a");
 
     public PassengerService passengerService;
@@ -33,7 +33,7 @@ public class ViewTicketsController {
     public String passengerEmail;
     public Passenger passenger;
 
-    public ViewTicketsController(){
+    public ViewPastTicketsController(){
 
     }
 
@@ -74,7 +74,6 @@ public class ViewTicketsController {
     @FXML private TableColumn<TicketRow, String> priceCol;
     @FXML private TableColumn<TicketRow, String> departurePlaceCol;
     @FXML private TableColumn<TicketRow, String> arrivalPlaceCol;
-    @FXML private TableColumn<TicketRow, Void> cancelCol;
 
 
     @FXML
@@ -88,7 +87,6 @@ public class ViewTicketsController {
         priceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
         departurePlaceCol.setCellValueFactory(cellData -> cellData.getValue().departurePlaceProperty());
         arrivalPlaceCol.setCellValueFactory(cellData -> cellData.getValue().arrivalPlaceProperty());
-        addCancelButtonToTable();
     }
 
     public void loadTickets() {
@@ -109,14 +107,10 @@ public class ViewTicketsController {
 
         System.out.println(passengerEmail + ticketService + trainService);
         passenger = passengerService.getPassengerById(passengerId);
-//        List<Ticket> tickets = ticketService.getTicketsForUser(passengerId);
-        List<Ticket> tickets = passenger.viewTickets(ticketService, passengerId);
+        List<Ticket> tickets = passenger.viewPastTickets(ticketService, passengerId);
         ObservableList<TicketRow> rows = FXCollections.observableArrayList();
 
         for (Ticket ticket : tickets) {
-            if(ticket.getStatus().equalsIgnoreCase("cancelled") || ticket.getStatus().equalsIgnoreCase("vacant")){
-                continue;
-            }
             Train train = trainService.getTrainById(ticket.getTrainId());
             if (train != null) {
 
@@ -134,49 +128,6 @@ public class ViewTicketsController {
         ticketTable.setItems(rows);
     }
 
-    private void addCancelButtonToTable() {
-        cancelCol.setCellFactory(col -> new TableCell<>() {
-            private final Button cancelButton = new Button("Cancel");
-
-            {
-                cancelButton.setOnAction(event -> {
-                    TicketRow ticketRow = getTableView().getItems().get(getIndex());
-                    handleCancelTicket(ticketRow);
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(cancelButton);
-                }
-            }
-        });
-    }
-
-
-    private void handleCancelTicket(TicketRow row) {
-        // TODO: You implement the cancellation logic here
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Confirm Cancellation");
-        confirm.setHeaderText("Cancel Ticket");
-        confirm.setContentText("Are you sure you want to cancel ticket for Train ID: " + row.getTrainId() + ", Seat: " + row.getSeat() + "?");
-
-        confirm.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                System.out.println("Cancelling ticket...");
-                try {
-                    ticketService.cancelTicket(parseInt(row.getTicketId()), parseInt(row.getPassengerId()));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                ticketTable.getItems().remove(row);
-            }
-        });
-    }
 
 
     @FXML
