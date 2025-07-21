@@ -11,14 +11,14 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        TrainService trainService = new TrainService("src/main/resources/trains.txt", "src/main/resources/tickets.txt"); // changed on 2025-7-18 to include ticket file
+        TrainService trainService = new TrainService("src/main/resources/trains.txt","src/main/resources/tickets.txt");
         PassengerService passengerService = new PassengerService("src/main/resources/passengers.txt", trainService);
         TicketService ticketService = new TicketService("src/main/resources/tickets.txt", passengerService);
         TicketMasterService ticketMasterService = new TicketMasterService("src/main/resources/ticketmasters.txt", trainService);
         TrainOperatorService trainOperatorService = new TrainOperatorService("src/main/resources/trainoperators.txt", trainService, ticketMasterService);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("role_selection.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 960, 540);
 
         RoleSelectionController rscontroller = fxmlLoader.<RoleSelectionController>getController();
         rscontroller.setPassengerService(passengerService);

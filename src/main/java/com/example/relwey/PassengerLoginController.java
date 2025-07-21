@@ -4,6 +4,7 @@ import backend.PassengerService;
 import backend.Passenger;
 import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
@@ -16,6 +17,8 @@ import backend.PassengerFileHandler;
 import backend.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+import java.io.IOException;
 
 
 public class PassengerLoginController {
@@ -65,12 +68,13 @@ public class PassengerLoginController {
         alert.showAndWait();
     }
 
-    @FXML private TextField usernameField;
+    @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
+    @FXML private Button login;
 
     @FXML
-    private void handleLogin() {
-        String email = usernameField.getText();
+    private void handleLogin() throws IOException {
+        String email = emailField.getText();
         String password = passwordField.getText();
         Passenger p = passengerService.login(email, password);
 
@@ -79,16 +83,42 @@ public class PassengerLoginController {
         }
         else{
             System.out.println("successful login: " + email + " " + password);
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PassengerDashboard.fxml"));
+            Parent root = loader.load();
+
+            PassengerDashboardController pdController = loader.getController();
+            pdController.setPassengerService(passengerService);
+            pdController.setTicketService(ticketService);
+            pdController.setTrainOperatorService(trainOperatorService);
+            pdController.setTrainService(trainService);
+            pdController.setTicketMasterService(ticketMasterService);
+            pdController.setP(p);
+
+
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+
         }
-        // TODO: Validate against file or database
     }
 
     @FXML
     private void handleSignUp() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        // TODO: Save to file or database
-        System.out.println("Sign Up pressed for user: " + username);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("passenger_signup.fxml"));
+            Parent root = loader.load();
+
+            // Pass the passengerService to the signup controller
+            PassengerSignupController controller = loader.getController();
+            controller.setPassengerService(passengerService);
+
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -102,8 +132,9 @@ public class PassengerLoginController {
             roleController.setTrainOperatorService(trainOperatorService);
             roleController.setTicketService(ticketService);
             roleController.setTrainService(trainService);
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

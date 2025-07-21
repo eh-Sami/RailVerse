@@ -11,11 +11,11 @@
 
     <Label style="-fx-font-size: 20px;" text="Passenger Login / Sign Up" />
 
-    <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="249.0" promptText="Username" />
+    <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="249.0" promptText="Username" />
     <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="250.0" promptText="Password" />
 
     <Button minWidth="100" onAction="#handleLogin" text="Log In" />
     <Button minWidth="100" onAction="#handleSignUp" text="Sign Up" />
 
-    <Button onAction="#handleBack" text="Back" />
+    <Button onAction="#handleBack" prefHeight="25.0" prefWidth="80.0" text="Back" />
 </VBox>

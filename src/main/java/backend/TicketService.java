@@ -84,7 +84,9 @@ public class TicketService {
             }
         }
         if(found){
-            TicketFileHandler.writeTickets(filename, ticketList);
+//            TicketFileHandler.writeTickets(filename, ticketList);
+            TicketFileHandler.updateTicket(filename, ticketId + "", t.toCSV());
+
             System.out.println("Ticket cancelled successfully!" );
             return t;
         }

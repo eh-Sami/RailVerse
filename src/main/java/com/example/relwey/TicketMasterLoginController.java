@@ -89,7 +89,7 @@ public class TicketMasterLoginController {
             roleController.setTicketService(ticketService);
             roleController.setTrainService(trainService);
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 500));
+            stage.setScene(new Scene(root, 960, 540));
         } catch (Exception e) {
             e.printStackTrace();
         }

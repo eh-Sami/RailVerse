@@ -54,8 +54,8 @@ public class RoleSelectionController {
         passengerController.setTrainOperatorService(trainOperatorService);
         passengerController.setTrainService(trainService);
         passengerController.setTicketMasterService(ticketMasterService);
-        stage.setScene(new Scene(root));
-//        loadScene("passenger_login.fxml");
+        stage.setScene(new Scene(root, 960, 540));
+
     }
 
     @FXML
@@ -69,8 +69,8 @@ public class RoleSelectionController {
         masterController.setTicketService(ticketService);
         masterController.setTrainOperatorService(trainOperatorService);
         masterController.setTrainService(trainService);
-        stage.setScene(new Scene(root));
-//        loadScene("ticketmaster_login.fxml");
+        stage.setScene(new Scene(root, 960, 540));
+
     }
 
     @FXML
@@ -84,18 +84,7 @@ public class RoleSelectionController {
         operatorController.setTicketService(ticketService);
         operatorController.setTrainService(trainService);
         operatorController.setTicketMasterService(ticketMasterService);
-        stage.setScene(new Scene(root));
-//        loadScene("trainoperator_login.fxml");
-    }
+        stage.setScene(new Scene(root, 960, 540));
 
-//    private void loadScene(String fxmlFile) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-//            Parent root = loader.load();
-//            Stage stage = (Stage) passengerButton.getScene().getWindow();
-//            stage.setScene(new Scene(root));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    }
 }
