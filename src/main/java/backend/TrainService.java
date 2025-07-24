@@ -34,10 +34,10 @@ public class TrainService {
         return null;
     }
 
-    public List<Train> getTrainsBySource(String source){
+    public List<Train> getTrainsBySource(String source, String destination){
         List<Train> trains = new ArrayList<>();
         for(Train train : trainList){
-            if(train.getSource().equalsIgnoreCase(source)){
+            if(train.getSource().equalsIgnoreCase(source) && train.getDestination().equalsIgnoreCase(destination)){
                 trains.add(train);
             }
         }

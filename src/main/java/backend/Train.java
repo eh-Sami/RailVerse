@@ -22,9 +22,9 @@ public class Train {
     private String trainFilePath; // changed on 2025-7-18 to use file paths
     private String ticketFilePath;  // changed on 2025-7-18 to use file paths
 
-    private int createTicketId(int row, int col, int compartmentCount) {
+    private int createTicketId(int row, int col, int compartmentIndex) {
         // format : TrainId + compartment serial + seatNumber in that compartment
-        return this.Id * 1000 + compartmentCount * 100 + row * 4 + col + 1;
+        return this.Id * 1000 + compartmentIndex * 100 + row * 4 + col + 1;
     }
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -140,10 +140,11 @@ public class Train {
         for (Ticket[][] compartment : compartments) {
             for (Ticket[] row : compartment) {
                 for (Ticket ticket : row) {
-                    if (ticket.getTicketId() == ticketId && ticket.getStatus().equalsIgnoreCase("Vacant")) {
+                    if (ticket.getTicketId() == ticketId && (ticket.getStatus().equalsIgnoreCase("Vacant") || ticket.getStatus().equalsIgnoreCase("Cancelled"))) {
                         ticket.setStatus("Booked");
                         ticket.setBookingDate(LocalDateTime.now());
                         ticket.setPassenger(passenger);
+                        ticket.setPrice(baseFare);
 //                        passenger.addTicket(ticket); // Add ticket to passenger's list
 
                         try {
@@ -231,6 +232,12 @@ public class Train {
                 compartments.size();
     }
 
+    public String getFrom() { return source; }
+    public String getTo() { return destination; }
+
+    public String getDepartureTimeString() {
+        return departureTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
     // Factory: Create Train object from CSV line
     public static Train fromCSV(String line, String trainFilePath, String ticketFilePath) {
         if (line == null || line.isEmpty()) return null;
@@ -273,5 +280,13 @@ public class Train {
         }
     }
 
+    public String getTrainId() {
+        return Id + "";
+    }
+
+
+    public double getPrice() {
+        return baseFare;
+    }
 
 }

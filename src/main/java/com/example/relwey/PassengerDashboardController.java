@@ -9,8 +9,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.List;
 
-    public class PassengerDashboardController {
+public class PassengerDashboardController {
     public PassengerService passengerService;
     public TrainService trainService;
     public TicketMasterService ticketMasterService;
@@ -54,8 +55,8 @@ import java.time.LocalDate;
 
     @FXML
     public void initialize() {
-        fromComboBox.getItems().addAll("Dhaka", "Chattogram", "Rajshahi", "Khulna", "Sylhet");
-        toComboBox.getItems().addAll("Dhaka", "Chattogram", "Rajshahi", "Khulna", "Sylhet");
+        fromComboBox.getItems().addAll("Dhaka", "Chattogram", "Rajshahi", "Khulna", "Sylhet", "Mymensingh", "Rangpur", "Barishal");
+        toComboBox.getItems().addAll("Dhaka", "Chattogram", "Rajshahi", "Khulna", "Sylhet", "Mymensingh", "Rangpur", "Barishal");
 
         searchButton.setOnAction(e -> handleSearchTrain());
         viewTicketsButton.setOnAction(e -> handleViewTickets());
@@ -68,9 +69,15 @@ import java.time.LocalDate;
         String from = fromComboBox.getValue();
         String to = toComboBox.getValue();
         LocalDate date = datePicker.getValue();
+        LocalDate currDate = LocalDate.now();
 
         if (from == null || to == null || date == null) {
             showAlert(Alert.AlertType.ERROR, "Missing Input", "Please select both stations and a date.");
+            return;
+        }
+
+        if (currDate.isAfter(date)) {
+            showAlert(Alert.AlertType.ERROR, "Invalid", "Please select valid a date.");
             return;
         }
 
@@ -79,9 +86,41 @@ import java.time.LocalDate;
             return;
         }
 
-        // TODO: Load available trains screen using these values
 
-        System.out.println("Searching for trains from " + from + " to " + to + " on " + date);
+        // TODO: Load available trains screen using these values
+        List<Train> filteredTrains = trainService.getTrainsBySource(from, to);
+        System.out.println(filteredTrains);
+
+        if (filteredTrains.isEmpty()) {
+            showAlert(Alert.AlertType.INFORMATION, "No Trains", "No trains available for the selected route and date.");
+            return;
+        }
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("availableTrains.fxml"));
+            Parent root = loader.load();
+            AvailableTrainsController controller = loader.getController();
+            controller.setTrainList(filteredTrains);
+            controller.setFrom(from);
+            controller.setTo(to);
+            controller.setDate(date);
+            controller.setPassenger(p);
+            controller.setTicketService(ticketService);
+            controller.setTrainService(trainService);
+            controller.setPassengerService(passengerService);
+            controller.setTicketMasterService(ticketMasterService);
+            controller.setTrainOperatorService(trainOperatorService);
+
+            Stage stage = (Stage) searchButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+            System.out.println("Searching for trains from " + from + " to " + to + " on " + date);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Something went wrong while loading available trains.");
+        }
+
+
     }
 
     private void handleViewTickets() {

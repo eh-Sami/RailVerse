@@ -38,7 +38,7 @@ public class Passenger extends User{
         return "Passenger{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + '}';
     }
 
-    public void viewAvailableTrains(List<Train> trainList){
+    public void viewAvailableTrains(List<Train> trainList, String from, String to){
         System.out.println("Available Trains: ");
         for(Train train : trainList){
             System.out.println(train);
@@ -46,45 +46,7 @@ public class Passenger extends User{
     }
 
     public void bookTicket(Object t, Ticket ticket){
-//        Scanner sc = new Scanner(System.in);
-//
-//        System.out.println("Enter Train ID: ");
-//        int trainId = sc.nextInt();
-//        sc.nextLine();
-//        Train selectedTrain = trainService.getTrainById(trainId);
-//        ticketService.displaySeatMap(selectedTrain);
-//        System.out.println("Enter seat number: (e.g., B2)");
-//        String seat = sc.nextLine();
-//        try{
-//            Ticket t = ticketService.bookTicket(this, selectedTrain, seat);
-//            if(t != null) {
-//                myTickets.add(t);
-//            }
-//            System.out.println("Booking ticket on Train ID " + trainId + " for seat " + seat + "...");
-//        }
-//        catch(Exception e){
-//            System.out.println("error " + e.getMessage());
-//        }
-        if(t instanceof Integer) {
-            int trainId = (Integer) t;
-            Train selectedTrain = trainService.getTrainById(trainId);
-            if (selectedTrain == null) {
-                System.out.println("Train with ID " + trainId + " not found.");
-                return;
-            }
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter seat number: (e.g., B2)");
-            String seat = sc.nextLine();
-            try {
-                Ticket bookedTicket = selectedTrain.bookTicket(this, ticket.getTicketId());
-                if (ticket != null) {
-                    myTickets.add(ticket);
-                    System.out.println("Ticket booked successfully for Train ID " + trainId + " on seat " + seat + ".");
-                }
-            } catch (Exception e) {
-                System.out.println("Error booking ticket: " + e.getMessage());
-            }
-        } else if(t instanceof Train) {
+        if(t instanceof Train) {
             Train selectedTrain = (Train) t;
             if (selectedTrain == null) {
                 System.out.println("Train not found for the ticket.");
