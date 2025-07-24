@@ -1,9 +1,9 @@
 package backend;
 public abstract class User {
     protected final int id;
-    protected String name;
+    protected final String name;
     protected final String nid; // changed
-    protected final String email; // changed
+    protected String email; // changed
     protected String address;
     protected String password;
 

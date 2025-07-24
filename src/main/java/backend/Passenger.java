@@ -34,6 +34,15 @@ public class Passenger extends User{
     }
 
     @Override
+    public String getAddress() {
+        return super.getAddress();
+    }
+
+    public void setAdress(String address){
+        this.address = address;
+    }
+
+    @Override
     public String toString() {
         return "Passenger{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + '}';
     }
@@ -145,53 +154,50 @@ public class Passenger extends User{
     }
 // okay - aditya
 
-    public boolean changePassword(String oldPassword, String newPassword) throws IOException {
-        if (!User.passwordValidityCheck(oldPassword) || !oldPassword.equals(this.password)) {
-            System.out.println("Old password is incorrect.");
-            return false;
-        }
-        if(!User.passwordValidityCheck(newPassword)) {
-            System.out.println("New password must be at least 8 characters long.");
-            return false;
-        }
-        return updatePassword(newPassword);
-    }
-    //okay - aditya
-
-    public boolean updatePassword(String newPassword) throws IOException {
+        public boolean updatePassword(String newPassword) throws IOException {
         // not necessary. validity is checked earlier. keeping anyway
-        if (newPassword == null || newPassword.isEmpty()) {
-            System.out.println("New password cannot be empty.");
-            return false;
-        }
-        // not necessary. validity is checked earlier. keeping anyway
-        if(newPassword.length() < 8) {
-            System.out.println("Password must be at least 8 characters long.");
-            return false;
-        }
-
         this.password = newPassword;
         try {
-            PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV()); // assuming this method exists
+            PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV());
         } catch (IOException e) {
             throw new IOException(e);
         }
         return true;
     }
 
-    public void editProfile(String name, String address) throws IOException {
-        if (name != null && !name.isEmpty()) {
-            this.name = name;
-        }
-        if (address != null && !address.isEmpty()) {
-            this.address = address;
-        }
+    public boolean updateAddress(String newAddress) throws IOException {
+        this.address = newAddress;
         try {
-            PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV()); // assuming this method exists
+            PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV());
         } catch (IOException e) {
-            throw new IOException("passenger not found");
+            throw new IOException(e);
         }
+        return true;
     }
+
+    public boolean updateEmail(String newEmail) throws IOException {
+        this.email = newEmail;
+        try {
+            PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV());
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+        return true;
+    }
+
+//    public void editProfile(String name, String address) throws IOException {
+//        if (name != null && !name.isEmpty()) {
+//            this.name = name;
+//        }
+//        if (address != null && !address.isEmpty()) {
+//            this.address = address;
+//        }
+//        try {
+//            PassengerFileHandler.updatePassenger(passengerFilePath, String.valueOf(this.id), toCSV());
+//        } catch (IOException e) {
+//            throw new IOException("passenger not found");
+//        }
+//    }
 
     public String toCSV() {
         return id + "," + name + "," + nid + "," + email + "," + password + "," + fine + "," + address; // changed

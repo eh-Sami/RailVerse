@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.relwey.PassengerInfoController">
+
+    <top>
+        <Label alignment="CENTER" maxWidth="Infinity" prefHeight="27.0" prefWidth="960.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Passenger Account Information" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10" left="0" right="0" top="20" />
+            </padding>
+        </Label>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="857.0" spacing="20">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <GridPane hgap="20" maxWidth="-Infinity" prefHeight="177.0" prefWidth="888.0" vgap="15">
+
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" />
+                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+               <RowConstraints />
+                </rowConstraints>
+
+                <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="idLabel" text="XXXX" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="nameLabel" text="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label fx:id="emailLabel" text="john@example.com" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="NID:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label fx:id="nidLabel" text="0123456789" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Label fx:id="addressLabel" text="123 Main St, Dhaka" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Fine (৳):" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Label fx:id="fineLabel" text="200" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </GridPane>
+
+
+            <VBox spacing="10">
+                <Label alignment="CENTER_LEFT" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Trip History:" />
+
+                <TableView fx:id="ticketTable" layoutX="55.0" layoutY="70.0" prefHeight="131.0" prefWidth="817.0">
+                    <columns>
+                        <TableColumn fx:id="trainNameCol" prefWidth="142.0" text="Train Name" />
+                        <TableColumn fx:id="trainIdCol" prefWidth="90.0" text="Train ID" />
+                        <TableColumn fx:id="seatCol" prefWidth="79.0" text="Seat" />
+                        <TableColumn fx:id="departureTimeCol" prefWidth="149.0" text="Departure Time" />
+                        <TableColumn fx:id="departurePlaceCol" prefWidth="130.0" text="Departure Station" />
+                        <TableColumn fx:id="arrivalPlaceCol" prefWidth="139.0" text="Arrival Station" />
+                        <TableColumn fx:id="priceCol" prefWidth="87.0" text="Price" />
+
+                    </columns>
+                </TableView>
+            </VBox>
+            <Button fx:id="backButton" layoutX="441.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="80.0" text="Back" />
+        </VBox>
+    </center>
+
+</BorderPane>

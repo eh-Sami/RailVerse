@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,8 +19,9 @@ public class PassengerDashboardController {
     public TrainOperatorService trainOperatorService;
     public TicketService ticketService;
     public Passenger p;
+    public Button viewAccountButton;
 
-        public void setP(Passenger p) {
+    public void setP(Passenger p) {
             this.p = p;
         }
 
@@ -63,6 +65,7 @@ public class PassengerDashboardController {
         viewHistoryButton.setOnAction(e -> handleViewHistory());
         editAccountButton.setOnAction(e -> handleEditAccount());
         logoutButton.setOnAction(e -> handleLogout());
+        viewAccountButton.setOnAction(e -> viewAccountButtonClicked());
     }
 
     private void handleSearchTrain() {
@@ -149,11 +152,32 @@ public class PassengerDashboardController {
         System.out.println("View Purchased Tickets clicked");
     }
 
+    private void viewAccountButtonClicked() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewAccount.fxml"));
+            Parent root = loader.load();
+            PassengerInfoController pInfo = loader.getController();
+            pInfo.setPassengerData(p.getName(), p.getEmail(), p.getAddress(), p.getFine(), p.getId(), p.getNid());
+            pInfo.setPassengerService(passengerService);
+            pInfo.setTicketMasterService(ticketMasterService);
+            pInfo.setTrainOperatorService(trainOperatorService);
+            pInfo.setTicketService(ticketService);
+            pInfo.setTrainService(trainService);
+            pInfo.setPassengerId(p.getId());
+            pInfo.setPassengerEmail(p.getEmail());
+            pInfo.loadTickets();
+            Stage stage = (Stage) viewAccountButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void handleViewHistory() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("pastPurchasedTickets.fxml"));
             Parent root = loader.load();
-            // TODO: Load history screen
+
             ViewPastTicketsController pastTickets = loader.getController();
 
             pastTickets.setPassengerService(passengerService);
@@ -174,9 +198,27 @@ public class PassengerDashboardController {
     }
 
     private void handleEditAccount() {
-        // TODO: Load edit account screen
-        System.out.println("Edit Account clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("edit_profile.fxml"));
+            Parent root = loader.load();
+            EditProfileController editProf = loader.getController();
+
+            editProf.setPassengerService(passengerService);
+            editProf.setTicketMasterService(ticketMasterService);
+            editProf.setTrainOperatorService(trainOperatorService);
+            editProf.setTicketService(ticketService);
+            editProf.setTrainService(trainService);
+            editProf.setPassenger(p);
+
+            Stage stage = (Stage) editAccountButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 960, 540));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("View History clicked");
     }
+
 
     private void handleLogout() {
         try {

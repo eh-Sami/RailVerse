@@ -19,6 +19,10 @@
                         <font>
                            <Font name="JetBrains Mono Medium" size="16.0" />
                         </font></Button>
+                      <Button fx:id="viewAccountButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="270.0" text="View Account" textAlignment="JUSTIFY">
+                          <font>
+                              <Font name="JetBrains Mono Medium" size="16.0" />
+                          </font></Button>
                        <Button fx:id="editAccountButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="270.0" text="Edit Account" textAlignment="JUSTIFY">
                         <font>
                            <Font name="JetBrains Mono Medium" size="16.0" />

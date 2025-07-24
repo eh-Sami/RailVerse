@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0" spacing="30" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.relwey.EditProfileController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <VBox alignment="TOP_CENTER" spacing="20">
+      <Label prefHeight="0.0" prefWidth="1.0" />
+      <Label />
+      <Label />
+      <Label />
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Edit Profile" />
+        <Button onAction="#showEmailSection" prefWidth="150" text="Change Email" />
+        <Button onAction="#showPasswordSection" prefWidth="150" text="Change Password" />
+        <Button onAction="#showAddressSection" prefWidth="150" text="Change Address" />
+        <Button fx:id="backButton" text="Back" onAction="#goBack" />
+    </VBox>
+
+    <StackPane fx:id="formPane" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400">
+        <VBox fx:id="emailForm" managed="false" spacing="10" visible="false">
+            <Label style="-fx-font-size: 16px;" text="Change Email" />
+            <TextField fx:id="emailField" promptText="Enter new email" />
+            <PasswordField fx:id="emailPasswordField" promptText="Enter current password" />
+            <HBox spacing="10">
+                <Button onAction="#handleChangeEmail" text="Save" />
+                <Button onAction="#hideForms" text="Cancel" />
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="passwordForm" managed="false" prefHeight="0.0" prefWidth="0.0" spacing="10" visible="false">
+            <Label style="-fx-font-size: 16px;" text="Change Password" />
+            <PasswordField fx:id="currentPasswordField" promptText="Current password" />
+            <PasswordField fx:id="newPasswordField" promptText="New password" />
+            <PasswordField fx:id="confirmPasswordField" promptText="Confirm new password" />
+            <HBox spacing="10">
+                <Button onAction="#handleChangePassword" text="Save" />
+                <Button onAction="#hideForms" text="Cancel" />
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="addressForm" managed="false" spacing="10" visible="false" alignment="CENTER">
+            <Label style="-fx-font-size: 16px;" text="Change Address" />
+            <TextField fx:id="addressField" promptText="Enter new address" />
+            <HBox spacing="10" alignment="CENTER">
+                <Button onAction="#handleChangeAddress" text="Save" />
+                <Button onAction="#hideForms" text="Cancel" />
+            </HBox>
+        </VBox>
+        <Label fx:id="statusLabel" textFill="red" style="-fx-font-size: 14px;" alignment="CENTER" />
+    </StackPane>
+</HBox>

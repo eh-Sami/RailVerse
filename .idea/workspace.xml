@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86fe9312-aa20-44ba-8fe9-1a5a25f25afb" name="Changes" comment="past ticket added">
+    <list default="true" id="86fe9312-aa20-44ba-8fe9-1a5a25f25afb" name="Changes" comment="from to done, ticket purchasing done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/backend/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/Passenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/backend/TicketRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/TicketRow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/backend/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/TicketService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/backend/Train.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/Train.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/backend/TrainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/TrainService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/relwey/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/relwey/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/backend/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/relwey/PassengerDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/relwey/PassengerDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/relwey/PassengerLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/relwey/PassengerLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/relwey/PassengerSignupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/relwey/PassengerSignupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/relwey/ViewTicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/relwey/ViewTicketsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/relwey/PassengerDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/relwey/PassengerDashboard.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/passengers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/passengers.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/prevtickets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/prevtickets.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/tickets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tickets.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/trains.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/trains.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="edit-profile" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -62,18 +58,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;implementing-FX&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "editing",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_directory_selection": "D:/java/interfaceUI/githubPorject/RailVerse-Project/src/main/java/com/example/relwey",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="RailVerse-Project" />
@@ -135,8 +133,20 @@
       <workItem from="1753280142241" duration="204000" />
       <workItem from="1753368663123" duration="10331000" />
       <workItem from="1753382204929" duration="25000" />
-      <workItem from="1753382253338" duration="1781000" />
+      <workItem from="1753382253338" duration="3290000" />
+      <workItem from="1753385891647" duration="95000" />
+      <workItem from="1753386016544" duration="122000" />
+      <workItem from="1753386239784" duration="10710000" />
     </task>
+    <task id="LOCAL-00001" summary="from to done, ticket purchasing done">
+      <option name="closed" value="true" />
+      <created>1753384256205</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753384256205</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,5 +162,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="from to done, ticket purchasing done" />
+    <option name="LAST_COMMIT_MESSAGE" value="from to done, ticket purchasing done" />
   </component>
 </project>
