@@ -36,6 +36,7 @@ public class TicketRow {
     public StringProperty trainNameProperty() {
         return trainName;
     }
+
     public String getDeparturePlace() {
         return departurePlace.get();
     }

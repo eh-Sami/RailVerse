@@ -109,7 +109,6 @@ public class ViewTicketsController {
 
         System.out.println(passengerEmail + ticketService + trainService);
         passenger = passengerService.getPassengerById(passengerId);
-//        List<Ticket> tickets = ticketService.getTicketsForUser(passengerId);
         List<Ticket> tickets = passenger.viewTickets(ticketService, passengerId);
         ObservableList<TicketRow> rows = FXCollections.observableArrayList();
 
@@ -170,6 +169,7 @@ public class ViewTicketsController {
                 System.out.println("Cancelling ticket...");
                 try {
                     ticketService.cancelTicket(parseInt(row.getTicketId()), parseInt(row.getPassengerId()));
+                    ticketService.reloadTicketsFromFile();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

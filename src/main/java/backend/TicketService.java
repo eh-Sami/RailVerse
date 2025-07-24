@@ -42,6 +42,14 @@ public class TicketService {
         return maxId + 1;
     }
 
+    public void reloadTicketsFromFile() {
+        try {
+            ticketList = TicketFileHandler.readTickets(currfilename, prevfilename, passengerService, trainService);
+            prevTicketList = TicketFileHandler.readOldTickets(prevfilename, passengerService);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public boolean isSeatBooked(int trainId, String seatNumber){
         for(Ticket ticket : ticketList){
             if(ticket.getTrainId() == trainId && ticket.getSeatNumber().equalsIgnoreCase(seatNumber) && ticket.getStatus().equalsIgnoreCase("Booked")){
@@ -51,6 +59,14 @@ public class TicketService {
         return false;
     }
 
+    public Ticket getTicketById(int id){
+        for(Ticket ticket : ticketList){
+            if(ticket.getTicketId() == id){
+                return ticket;
+            }
+        }
+        return null;
+    }
 //    public Ticket bookTicket(Passenger passenger, Train train, String seatNumber) throws IOException {
 //        if(isSeatBooked(train.getId(), seatNumber)){
 //            System.out.println("Seated seat is already booked!");
@@ -86,6 +102,9 @@ public class TicketService {
                     return null;
                 }
                 ticket.setStatus("Vacant");
+                ticket.setPassengerId(0);
+                ticket.setBookingDate(null);
+                ticket.setPrice(100);
                 found = true;
                 t = ticket;
                 break;
@@ -94,12 +113,25 @@ public class TicketService {
         if(found){
 //            TicketFileHandler.writeTickets(filename, ticketList);
             TicketFileHandler.updateTicket(currfilename, ticketId + "", t.toCSV());
+//            TicketFileHandler.writeTickets(currfilename, ticketList);
+            reloadTicketsFromFile();
+            saveAllTickets();
+
 
             System.out.println("Ticket cancelled successfully!" );
             return t;
         }
         System.out.println("Ticket not found!");
         return null;
+    }
+
+
+    public void saveAllTickets() {
+        try {
+            TicketFileHandler.writeTickets(currfilename, ticketList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Ticket> getTicketsForUser(int passengerId){

@@ -26,15 +26,16 @@ public class HelloApplication extends Application {
         rscontroller.setTicketService(ticketService);
         rscontroller.setTrainOperatorService(trainOperatorService);
         rscontroller.setTrainService(trainService);
+        //couot
 
-        System.out.println(ticketMasterService.getAllTicketMasters().getFirst() + " passengers in the system.");
-        System.out.println(ticketService.getAllTickets().getFirst() + " tickets in the system.");
-        System.out.println(trainService.getAllTrains().getFirst() + " tickets in the system.");
-        System.out.println(ticketMasterService.getAllTicketMasters().getFirst() + " passengers in the system.");
-        System.out.println(passengerService.getAllPassengers().getFirst() + " tickets in the system.");
-        System.out.println(trainOperatorService.getAllTrainOperators().getFirst() + " tickets in the system.");
+//        System.out.println(ticketMasterService.getAllTicketMasters().getFirst() + " passengers in the system.");
+//        System.out.println(ticketService.getAllTickets().getFirst() + " tickets in the system.");
+//        System.out.println(trainService.getAllTrains().getFirst() + " tickets in the system.");
+//        System.out.println(ticketMasterService.getAllTicketMasters().getFirst() + " passengers in the system.");
+//        System.out.println(passengerService.getAllPassengers().getFirst() + " tickets in the system.");
+//        System.out.println(trainOperatorService.getAllTrainOperators().getFirst() + " tickets in the system.");
 
-        stage.setTitle("ishmamGayrif");
+        stage.setTitle("Rail-Verse");
         stage.setScene(scene);
         stage.show();
     }

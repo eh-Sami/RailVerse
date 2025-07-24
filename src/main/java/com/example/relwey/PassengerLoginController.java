@@ -112,6 +112,10 @@ public class PassengerLoginController {
             // Pass the passengerService to the signup controller
             PassengerSignupController controller = loader.getController();
             controller.setPassengerService(passengerService);
+            controller.setTicketService(ticketService);
+            controller.setTrainOperatorService(trainOperatorService);
+            controller.setTrainService(trainService);
+            controller.setTicketMasterService(ticketMasterService);
 
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root, 960, 540));

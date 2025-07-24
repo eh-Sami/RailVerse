@@ -1,8 +1,6 @@
 package com.example.relwey;
 
-import backend.Passenger;
-import backend.PassengerService;
-import backend.PassengerFileHandler;
+import backend.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
@@ -12,10 +10,30 @@ import javafx.scene.Parent;
 
 public class PassengerSignupController {
 
-    private PassengerService passengerService;
+    public PassengerService passengerService;
+    public TicketService ticketService;
+    public TrainService trainService;
+    public TicketMasterService ticketMasterService;
+    public TrainOperatorService trainOperatorService;
 
     public void setPassengerService(PassengerService passengerService) {
         this.passengerService = passengerService;
+    }
+
+    public void setTrainService(TrainService trainService) {
+        this.trainService = trainService;
+    }
+
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    public void setTrainOperatorService(TrainOperatorService trainOperatorService) {
+        this.trainOperatorService = trainOperatorService;
+    }
+
+    public void setTicketMasterService(TicketMasterService ticketMasterService) {
+        this.ticketMasterService = ticketMasterService;
     }
 
     @FXML private TextField nameField;
@@ -49,6 +67,10 @@ public class PassengerSignupController {
             Parent root = loader.load();
             PassengerLoginController controller = loader.getController();
             controller.setPassengerService(passengerService);
+            controller.setTicketService(ticketService);
+            controller.setTrainOperatorService(trainOperatorService);
+            controller.setTrainService(trainService);
+            controller.setTicketMasterService(ticketMasterService);
             Stage stage = (Stage) nameField.getScene().getWindow();
             stage.setScene(new Scene(root, 960, 540));
 
