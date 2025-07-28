@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,8 @@ public class AvailableTrainsController {
     private int compartment;
     private String from, to;
     private LocalDate date;
+    private String dateStr;
+    private long dateLong;
     private Passenger passenger;
 
     public TicketService ticketService;
@@ -136,11 +139,14 @@ public class AvailableTrainsController {
         }
     }
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyy");
 
-
-    private int generateTicketId(String trainIdStr, int compartment, int seat) {
+    private long generateTicketId(String trainIdStr, int compartment, int seat) {
         int trainId = Integer.parseInt(trainIdStr);
-        return trainId * 1000 + (compartment) * 100 + seat;
+        LocalDate date = trainService.getTrainById(trainId).getDepartureTime().toLocalDate();
+        String dateStr = date.format(formatter);
+        long dateLong = Long.parseLong(dateStr);
+        return dateLong * 1000000 + trainId * 1000 + (compartment) * 100 + seat;
     }
 
 
@@ -164,7 +170,7 @@ public class AvailableTrainsController {
         int compartmentNum = compartmentSelector.getValue();
         System.out.println(compartmentNum + " " +selectedSeat);
 
-        int ticketId = generateTicketId(train.getTrainId(), compartmentNum, selectedSeat);
+        long ticketId = generateTicketId(train.getTrainId(), compartmentNum, selectedSeat);
         System.out.println(ticketId);
 
         Ticket ticket = ticketService.getTicketById(ticketId);
@@ -235,12 +241,15 @@ public class AvailableTrainsController {
                 ticketsOfThisTrain.add(t);
             }
         }
-        System.out.println(allTickets.getFirst());
         for (Ticket t : ticketsOfThisTrain) {
-            int comp = (t.getTicketId() % 1000) / 100;
-            int seatNum = t.getTicketId() % 100; // should be 1-24
-
-            if ((comp == compartmentNumber && t.getStatus().equalsIgnoreCase("Booked"))) {
+            long tWOdate = t.getTicketId() % 1000000;
+            int comp = (int)((tWOdate % 1000) / 100);
+            int seatNum = (int)(tWOdate % 100);
+            tWOdate = t.getTicketId() / 1000000;
+            dateStr = date.format(formatter);
+            dateLong = Long.parseLong(dateStr);
+            System.out.println(comp + "," +seatNum);
+            if ((comp == compartmentNumber && t.getStatus().equalsIgnoreCase("Booked") && tWOdate == dateLong)) {
                 System.out.println(comp + "," + seatNum + "," +t.getStatus());
                 if (seatNum >= 1 && seatNum <= 24) {
                     seatAvailability[seatNum - 1] = false;

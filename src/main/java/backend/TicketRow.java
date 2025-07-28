@@ -14,9 +14,9 @@ public class TicketRow {
     private final StringProperty ticketId;
     private final StringProperty ticketStatus;
     private final StringProperty passengerId;
+    private final StringProperty trainStatus;
 
-
-    public TicketRow(String trainName, String trainId, String seat, String departure, String price, String departurePlace, String arrivalPlace, String ticketId, String ticketStatus, String passengerId) {
+    public TicketRow(String trainName, String trainId, String seat, String departure, String price, String departurePlace, String arrivalPlace, String ticketId, String ticketStatus, String passengerId, String trainStatus) {
         this.trainName = new SimpleStringProperty(trainName);
         this.trainId = new SimpleStringProperty(trainId);
         this.seat = new SimpleStringProperty(seat);
@@ -27,6 +27,7 @@ public class TicketRow {
         this.ticketId = new SimpleStringProperty(ticketId);
         this.ticketStatus = new SimpleStringProperty(ticketStatus);
         this.passengerId = new SimpleStringProperty(passengerId);
+        this.trainStatus = new SimpleStringProperty(trainStatus);
     }
 
     public String getTrainName() {
@@ -35,6 +36,14 @@ public class TicketRow {
 
     public StringProperty trainNameProperty() {
         return trainName;
+    }
+
+    public String getTrainStatus() {
+        return trainStatus.get();
+    }
+
+    public StringProperty trainStatusProperty() {
+        return trainStatus;
     }
 
     public String getDeparturePlace() {

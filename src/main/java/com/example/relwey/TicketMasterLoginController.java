@@ -73,7 +73,22 @@ public class TicketMasterLoginController {
             showError("Invalid username or password");
         }
         else{
-            System.out.println("successful login: " + email + " " + password);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ticketMasterDashboard.fxml"));
+                Parent root = loader.load();
+                TicketMasterDashboardController tmdashboard = loader.getController();
+                tmdashboard.setPassengerService(passengerService);
+                tmdashboard.setTicketMasterService(ticketMasterService);
+                tmdashboard.setTrainOperatorService(trainOperatorService);
+                tmdashboard.setTicketService(ticketService);
+                tmdashboard.setTrainService(trainService);
+                tmdashboard.setTicketMaster(tm);
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                stage.setScene(new Scene(root, 960, 540));
+                System.out.println("successful login: " + email + " " + password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

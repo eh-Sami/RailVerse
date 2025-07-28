@@ -12,6 +12,8 @@ public class TicketMasterService{
         this.ticketMasters = TicketMasterHandler.readTicketMasters(filename, trainService);
     }
 
+
+
     public TicketMaster login(String email, String password){
         for(TicketMaster tm : ticketMasters){
             if(tm.getEmail().equalsIgnoreCase(email) && tm.getPassword().equals(password)){
@@ -64,5 +66,15 @@ public class TicketMasterService{
 
     public List<TicketMaster> getAllTicketMasters(){
         return ticketMasters;
+    }
+
+    public String getTicketMasterBytrainId(String trainId) {
+        int trainsId = Integer.parseInt(trainId);
+        for(TicketMaster tm : ticketMasters){
+            if(tm.getAssignedTrain().getId() == trainsId){
+                return String.valueOf(tm.getId());
+            }
+        }
+        return "none";
     }
 }

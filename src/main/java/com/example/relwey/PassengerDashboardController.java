@@ -91,7 +91,7 @@ public class PassengerDashboardController {
 
 
         // TODO: Load available trains screen using these values
-        List<Train> filteredTrains = trainService.getTrainsBySource(from, to);
+        List<Train> filteredTrains = trainService.getTrainsBySource(from, to, date);
         System.out.println(filteredTrains);
 
         if (filteredTrains.isEmpty()) {
@@ -113,6 +113,7 @@ public class PassengerDashboardController {
             controller.setPassengerService(passengerService);
             controller.setTicketMasterService(ticketMasterService);
             controller.setTrainOperatorService(trainOperatorService);
+            controller.setDate(date);
 
             Stage stage = (Stage) searchButton.getScene().getWindow();
             stage.setScene(new Scene(root, 960, 540));

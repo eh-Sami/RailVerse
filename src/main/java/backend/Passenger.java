@@ -117,7 +117,7 @@ public class Passenger extends User{
 //        }
 
         if (t instanceof Integer) {
-            int ticketId = (Integer) t;
+            long ticketId = (Long) t;
             Ticket ticketToCancel = null;
             for (Ticket ticket : myTickets) {
                 if (ticket.getTicketId() == ticketId) {

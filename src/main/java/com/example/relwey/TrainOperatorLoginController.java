@@ -66,13 +66,28 @@ public class TrainOperatorLoginController {
     private void handleLogin() {
         String email = usernameField.getText();
         String password = passwordField.getText();
-        // TODO: Validate credentials
         TrainOperator to = trainOperatorService.login(email, password);
+
         if (to == null) {
             showError("Invalid username or password");
         }
         else{
-            System.out.println("successful login: " + email + " " + password);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("trainOperatorDashboard.fxml"));
+                Parent root = loader.load();
+                TrainOperatorDashboardController todashboard = loader.getController();
+                todashboard.setPassengerService(passengerService);
+                todashboard.setTicketMasterService(ticketMasterService);
+                todashboard.setTrainOperatorService(trainOperatorService);
+                todashboard.setTicketService(ticketService);
+                todashboard.setTrainService(trainService);
+                todashboard.setTrainOperator(to);
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                stage.setScene(new Scene(root, 960, 540));
+                System.out.println("successful login: " + email + " " + password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

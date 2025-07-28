@@ -77,7 +77,7 @@ public class PassengerInfoController {
     private Label fineLabel;
 
     @FXML
-    private TableView<TicketRow> ticketTable; // Already populated elsewhere
+    private TableView<TicketRow> ticketTable;
 
     @FXML
     private TableColumn<TicketRow, String> trainNameCol;
@@ -143,7 +143,8 @@ public class PassengerInfoController {
                         train.getDepartureTime().format(formatter),
                         String.format("%.2f", ticket.getPrice()),
                         train.getSource(), train.getDestination(),
-                        ticket.getTicketId() + "", ticket.getStatus(), ticket.getPassengerId() + ""
+                        ticket.getTicketId() + "", ticket.getStatus(), ticket.getPassengerId() + "",
+                        train.getStatus()
                 ));
             }
         }

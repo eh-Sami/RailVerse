@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.relwey.TrainOperatorDashboardController">
+
+    <top>
+        <Label prefHeight="80.0" prefWidth="296.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Train Operator Dashboard" BorderPane.alignment="CENTER" />
+    </top>
+
+    <left>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="255.0" spacing="20">
+            <padding>
+                <Insets bottom="20" left="80" right="20" top="20" />
+            </padding>
+            <Button onAction="#handleChangeTime" prefHeight="45.0" prefWidth="150.0" text="Change Train Time" />
+            <Button onAction="#handleAssignTicketMaster" prefHeight="45.0" prefWidth="150.0" text="Assign Ticket Master" />
+            <Button onAction="#handleViewTrains" prefHeight="45.0" prefWidth="150.0" text="View Trains" />
+            <Button onAction="#handleViewProfile" prefHeight="45.0" prefWidth="150.0" text="View Profile" />
+            <Button onAction="#handleEditProfile" prefHeight="45.0" prefWidth="150.0" text="Edit Profile" />
+            <Button fx:id="logoutButton" onAction="#handleLogout" prefHeight="45.0" prefWidth="150.0" text="Logout" />
+        </VBox>
+    </left>
+
+    <center>
+        <VBox fx:id="centerContent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0" prefWidth="612.0" spacing="15">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            <Label style="-fx-font-size: 16px; -fx-text-fill: #555;" text="Select an action from the left menu." />
+        </VBox>
+    </center>
+
+</BorderPane>

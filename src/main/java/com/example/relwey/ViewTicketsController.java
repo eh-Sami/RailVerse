@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
 
 public class ViewTicketsController {
@@ -74,6 +75,7 @@ public class ViewTicketsController {
     @FXML private TableColumn<TicketRow, String> priceCol;
     @FXML private TableColumn<TicketRow, String> departurePlaceCol;
     @FXML private TableColumn<TicketRow, String> arrivalPlaceCol;
+    @FXML private TableColumn<TicketRow, String> statusCol;
     @FXML private TableColumn<TicketRow, Void> cancelCol;
 
 
@@ -88,6 +90,7 @@ public class ViewTicketsController {
         priceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
         departurePlaceCol.setCellValueFactory(cellData -> cellData.getValue().departurePlaceProperty());
         arrivalPlaceCol.setCellValueFactory(cellData -> cellData.getValue().arrivalPlaceProperty());
+        statusCol.setCellValueFactory(cellData -> cellData.getValue().trainStatusProperty());
         addCancelButtonToTable();
     }
 
@@ -126,7 +129,8 @@ public class ViewTicketsController {
                         train.getDepartureTime().format(formatter),
                         String.format("%.2f", ticket.getPrice()),
                         train.getSource(), train.getDestination(),
-                        ticket.getTicketId() + "", ticket.getStatus(), ticket.getPassengerId() + ""
+                        ticket.getTicketId() + "", ticket.getStatus(), ticket.getPassengerId() + "",
+                        train.getStatus()
                 ));
             }
         }
@@ -168,7 +172,7 @@ public class ViewTicketsController {
             if (response == ButtonType.OK) {
                 System.out.println("Cancelling ticket...");
                 try {
-                    ticketService.cancelTicket(parseInt(row.getTicketId()), parseInt(row.getPassengerId()));
+                    ticketService.cancelTicket(parseLong(row.getTicketId()), parseInt(row.getPassengerId()));
                     ticketService.reloadTicketsFromFile();
                 } catch (IOException e) {
                     throw new RuntimeException(e);

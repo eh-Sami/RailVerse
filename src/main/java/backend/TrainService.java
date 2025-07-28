@@ -1,5 +1,7 @@
 package backend;
 import java.security.spec.ECField;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,10 +36,10 @@ public class TrainService {
         return null;
     }
 
-    public List<Train> getTrainsBySource(String source, String destination){
+    public List<Train> getTrainsBySource(String source, String destination, LocalDate date){
         List<Train> trains = new ArrayList<>();
         for(Train train : trainList){
-            if(train.getSource().equalsIgnoreCase(source) && train.getDestination().equalsIgnoreCase(destination)){
+            if(train.getSource().equalsIgnoreCase(source) && train.getDestination().equalsIgnoreCase(destination) && train.getDepartureTime().toLocalDate().equals(date)){
                 trains.add(train);
             }
         }

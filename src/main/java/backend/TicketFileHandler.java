@@ -29,6 +29,10 @@ public class TicketFileHandler {
                 LocalDateTime currtime = LocalDateTime.now();
                 LocalDateTime trainTime = trainService.getTrainById(ticket.getTrainId()).getDepartureTime();
 
+                if(ticket.getStatus().equalsIgnoreCase("Booked")){
+                    ticket.setPassenger(passengerService.getPassengerById(ticket.getPassengerId()));
+                }
+
                 if(currtime.isBefore(trainTime)){
                     if(ticket.getStatus().equalsIgnoreCase("Cancelled")){
                         ticket.setStatus("Vacant");
@@ -135,7 +139,6 @@ public class TicketFileHandler {
             String line;
             // Read each line from the original file
             while ((line = reader.readLine()) != null) {
-                // Check if the line starts with ticketId followed by a comma, ignoring leading/trailing whitespace
                 if (line.trim().startsWith(ticketId + ",")) {
                     writer.write(newLine); // Write the updated line
                     writer.newLine();
@@ -146,7 +149,6 @@ public class TicketFileHandler {
                 }
             }
         } catch (IOException e) {
-            // Clean up temporary file on error and rethrow exception
             try {
                 Files.deleteIfExists(tempFile);
             } catch (IOException ex) {
@@ -155,7 +157,6 @@ public class TicketFileHandler {
             throw e;
         }
 
-        // If ticket was updated, replace original file; otherwise, delete temp file
         if (updated) {
             Files.move(tempFile, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Ticket " + ticketId + " updated successfully.");

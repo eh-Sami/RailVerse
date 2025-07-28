@@ -20,7 +20,7 @@
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
 
-            <GridPane hgap="20" maxWidth="-Infinity" prefHeight="177.0" prefWidth="888.0" vgap="15">
+            <GridPane hgap="20" maxWidth="-Infinity" prefHeight="153.0" prefWidth="817.0" vgap="15">
 
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" />
@@ -59,7 +59,7 @@
             <VBox spacing="10">
                 <Label alignment="CENTER_LEFT" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Trip History:" />
 
-                <TableView fx:id="ticketTable" layoutX="55.0" layoutY="70.0" prefHeight="131.0" prefWidth="817.0">
+                <TableView fx:id="ticketTable" layoutX="55.0" layoutY="70.0" prefHeight="144.0" prefWidth="817.0">
                     <columns>
                         <TableColumn fx:id="trainNameCol" prefWidth="142.0" text="Train Name" />
                         <TableColumn fx:id="trainIdCol" prefWidth="90.0" text="Train ID" />

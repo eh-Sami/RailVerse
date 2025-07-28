@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Ticket{
-    private int ticketId;
+    private long ticketId;
     private int passengerId;
     private Passenger assignedPassenger;
     private int trainId;
@@ -17,7 +17,7 @@ public class Ticket{
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Ticket(int ticketId, int passengerId, int trainId, String seatNumber, LocalDateTime bookingDate, String status, Double fine, Double price) {
+    public Ticket(long ticketId, int passengerId, int trainId, String seatNumber, LocalDateTime bookingDate, String status, Double fine, Double price) {
         this.ticketId = ticketId;
 //        this.assignedPassenger = passenger;
 
@@ -33,7 +33,7 @@ public class Ticket{
     /**
      * Getters and Setters for Ticket attributes.
      */
-    public int getTicketId() {
+    public long getTicketId() {
         return ticketId;
     }
     public Passenger getPassenger() {
@@ -99,7 +99,7 @@ public class Ticket{
     public static Ticket fromCSV(String line, PassengerService passengerService) {
         String[] parts = line.split(",");
         if (parts.length < 8) return null;
-        int ticketId = Integer.parseInt(parts[0]);
+        long ticketId = Long.parseLong(parts[0]);
         int passengerId = Integer.parseInt(parts[1]);
         int trainId = Integer.parseInt(parts[2]);
         String seatNumber = parts[3];

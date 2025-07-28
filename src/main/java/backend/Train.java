@@ -1,5 +1,6 @@
 package backend;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,12 +23,18 @@ public class Train {
     private String trainFilePath; // changed on 2025-7-18 to use file paths
     private String ticketFilePath;  // changed on 2025-7-18 to use file paths
 
-    private int createTicketId(int row, int col, int compartmentIndex) {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    DateTimeFormatter formatterTwo = DateTimeFormatter.ofPattern("ddMMyy");
+
+
+    private long createTicketId(int row, int col, int compartmentIndex) {
         // format : TrainId + compartment serial + seatNumber in that compartment
-        return this.Id * 1000 + compartmentIndex * 100 + row * 4 + col + 1;
+        LocalDate date = departureTime.toLocalDate();
+        String formattedDate = date.format(formatterTwo);
+        long dateLong = Long.parseLong(formattedDate);
+        return dateLong * 1000000 + this.Id * 1000 + compartmentIndex * 100 + row * 4 + col + 1;
     }
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Train(int id, String name, String source, String destination, LocalDateTime departureTime, LocalDateTime arrivalTime, String status, double fare, int compartmentCount, String trainFilePath, String ticketFilePath) throws IOException {
         Id = id;
@@ -136,7 +143,7 @@ public class Train {
         return false;
     }
 
-    public Ticket bookTicket(Passenger passenger, int ticketId) {
+    public Ticket bookTicket(Passenger passenger, long ticketId) {
         for (Ticket[][] compartment : compartments) {
             for (Ticket[] row : compartment) {
                 for (Ticket ticket : row) {
@@ -166,7 +173,7 @@ public class Train {
             for (Ticket[] row : compartment) {
                 for (Ticket ticket : row) {
                     if(t instanceof Integer) {
-                        if (ticket.getTicketId() == (Integer) t && ticket.getStatus().equalsIgnoreCase("Booked")) {
+                        if (ticket.getTicketId() == (Long) t && ticket.getStatus().equalsIgnoreCase("Booked")) {
                             ticket.setStatus("Cancelled");
                             ticket.getPassenger().cancelTicket(ticket.getTicketId());
                             try {
@@ -200,6 +207,21 @@ public class Train {
             for (Ticket[] row : compartment) {
                 for (Ticket ticket : row) {
                     ticketList.add(ticket);
+                }
+            }
+        }
+        return ticketList;
+    }
+
+    public List<Ticket> getAllOwnedTickets() {
+        List<Ticket> ticketList = new ArrayList<>();
+        for (Ticket[][] compartment : compartments) {
+            for (Ticket[] row : compartment) {
+                for (Ticket ticket : row) {
+                    if(ticket.getStatus().equalsIgnoreCase("booked"))
+                    {
+                        ticketList.add(ticket);
+                    }
                 }
             }
         }

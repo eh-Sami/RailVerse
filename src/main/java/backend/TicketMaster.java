@@ -17,6 +17,10 @@ public class TicketMaster extends User {
         this.ticketMasterFilePath = ticketMasterFilePath;
     }
 
+    public String getStatus(){
+        return status;
+    }
+
     /**
      * Getters and Setter
      */
@@ -26,12 +30,11 @@ public class TicketMaster extends User {
     public Train getAssignedTrain() {
         return assignedTrain;
     }
-    public void setAssignedTrain(Train assignedTrain) throws IOException {
+    public void setAssignedTrain(Train assignedTrain, String status) throws IOException {
         this.assignedTrain = assignedTrain;
-        this.status = "active"; // Assuming assigning a train means the TicketMaster is active
+        this.status = status;
         try {
             TicketMasterHandler.updateTicketMaster(ticketMasterFilePath, String.valueOf(this.id), this.toCSV());
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -55,11 +58,11 @@ public class TicketMaster extends User {
 
     /**
      * Validates a ticket for a passenger.
-     * @param passenger
      * @param ticket
      * @return
      */
-    public boolean validateTicket(Passenger passenger, Object ticket) {
+    public boolean
+    validateTicket(Ticket ticket) {
 //        List<Ticket> tickets = ticketService.getAllTickets();
 //        for (Ticket t : tickets) {
 //            if (t.getTicketId() == ticketId && t.available().equalsIgnoreCase("Booked")) {
@@ -80,7 +83,6 @@ public class TicketMaster extends User {
             System.out.println("Ticket ID " + ticket + " is valid.");
         } else {
             System.out.println("Ticket ID " + ticket + " is invalid or cancelled.");
-            addFineToPassenger(passenger, 500); // fine for invalid ticket
         }
         return isValid;
     }
@@ -139,6 +141,23 @@ public class TicketMaster extends User {
         return tickets;
     }
 
+    public void changeName(String name){
+        this.name = name;
+        try {
+            TicketMasterHandler.updateTicketMaster(ticketMasterFilePath, String.valueOf(this.id), this.toCSV());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void changeAddress(String address){
+        this.address = address;
+        try {
+            TicketMasterHandler.updateTicketMaster(ticketMasterFilePath, String.valueOf(this.id), this.toCSV());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public boolean changePassword(String oldPassword, String newPassword) {
         if (!User.passwordValidityCheck(oldPassword) || !oldPassword.equals(this.password)) {
             System.out.println("Old password is incorrect.");
@@ -158,6 +177,11 @@ public class TicketMaster extends User {
         }
         this.password = newPassword;
         System.out.println("Password updated successfully.");
+        try {
+            TicketMasterHandler.updateTicketMaster(ticketMasterFilePath, String.valueOf(this.id), this.toCSV());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }
 
@@ -210,55 +234,5 @@ public class TicketMaster extends User {
             return null;
         }
     }
-
-    public void dashboard(TicketService ticketService, PassengerService passengerService) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("TicketMaster Dashboard: ");
-            System.out.println("1. Validate Ticket");
-            System.out.println("2. Add Fine to Passenger");
-            System.out.println("3. View All Tickets");
-            System.out.println("4. Logout");
-            System.out.print("Choose an option: ");
-
-            String choice = scanner.nextLine();
-
-            switch (choice) {
-                case "1":
-                    System.out.print("Enter Ticket ID to validate: ");
-                    int ticketId = Integer.parseInt(scanner.nextLine());
-//                    boolean valid = validateTicket(ticketId, ticketService); // validateTicket method is updated
-//                    System.out.println(valid ? "Ticket is valid." : "Ticket is invalid or cancelled.");
-                    break;
-
-                case "2":
-                    System.out.print("Enter Passenger ID to add fine: ");
-                    int passengerId = Integer.parseInt(scanner.nextLine());
-                    Passenger passenger = passengerService.getPassengerById(passengerId);
-                    if (passenger == null) {
-                        System.out.println("Passenger not found.");
-                        break;
-                    }
-                    System.out.print("Enter fine amount: ");
-                    double fineAmount = Double.parseDouble(scanner.nextLine());
-                    if (addFineToPassenger(passenger, fineAmount)) {
-                        passengerService.updatePassengerFine(passenger, passenger.getFine());
-                    }
-                    break;
-
-                case "3":
-                    viewAllTickets();
-                    break;
-
-                case "4":
-                    System.out.println("Logging out...");
-                    return;
-
-                default:
-                    System.out.println("Invalid choice. Try again.");
-            }
-        }
-    }
-
 
 }

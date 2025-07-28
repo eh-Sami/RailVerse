@@ -32,8 +32,8 @@ public class TicketService {
         return ticketList;
     }
     public List<Ticket> getAllPrevTickets() {return prevTicketList; }
-    private int generateNewTicketId(){
-        int maxId = 0;
+    private long generateNewTicketId(){
+        long maxId = 0;
         for(Ticket ticket : ticketList){
             if(ticket.getTicketId() > maxId){
                 maxId = ticket.getTicketId();
@@ -59,7 +59,7 @@ public class TicketService {
         return false;
     }
 
-    public Ticket getTicketById(int id){
+    public Ticket getTicketById(long id){
         for(Ticket ticket : ticketList){
             if(ticket.getTicketId() == id){
                 return ticket;
@@ -92,7 +92,7 @@ public class TicketService {
 //        return ticket;
 //    }
 
-    public Ticket cancelTicket(int ticketId, int passengerId) throws IOException { // return type changed from boolean to Ticket
+    public Ticket cancelTicket(long ticketId, int passengerId) throws IOException { // return type changed from boolean to Ticket
         boolean found = false;
         Ticket t = null;
         for(Ticket ticket : ticketList){

@@ -1,9 +1,11 @@
-101,Padma Express,Dhaka,Rajshahi,2025-07-30 08:00,2025-07-23 14:00,On Time,250.0,5
+0,No Trains Assigned,Dhaka,Dhaka,2025-01-01 08:00,2025-01-01 09:00,Not Accessible,0,1
+101,Padma Express,Dhaka,Rajshahi,2025-07-31 23:00,2025-07-23 14:00,delayed,250.0,5
+109,Padma Express,Dhaka,Rajshahi,2025-07-31 08:00,2025-07-23 14:00,On Time,250.0,5
 102,Sonar Bangla,Dhaka,Chittagong,2025-07-30 09:30,2025-07-23 14:30,On Time,300.0,6
 103,Silk City Express,Dhaka,Khulna,2025-07-30 07:00,2025-07-12 11:00,On Time,220.0,7
 104,Subarna Express,Chittagong,Dhaka,2025-07-30 17:00,2025-07-23 22:00,On Time,280.0,8
 105,Rangpur Express,Dhaka,Rangpur,2025-07-30 06:00,2025-07-14 13:00,On Time,270.0,3
-106,Buriganga Express,Dhaka,Rajshahi,2025-07-30 18:00,2025-07-23 20:00,On Time,290.0,5
+106,Buriganga Express,Dhaka,Rajshahi,2025-07-27 16:00,2025-07-23 20:00,On Time,290.0,5
 107,Gobindaganj Express,Dhaka,Rajshahi,2025-07-30 10:00,2025-07-23 14:00,On Time,210.0,7
 108,Pabna Express,Dhaka,Rajshahi,2025-07-30 06:00,2025-07-23 14:00,On Time,255.0,9
 

@@ -6,18 +6,33 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class TicketMasterHandler {
     public static List<TicketMaster> readTicketMasters(String filename, TrainService trainService) throws IOException, IOException {
         List<TicketMaster> ticketMasters = new ArrayList<>();
+        List<TicketMaster> ticketMasterstoEdit = new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 TicketMaster tm = TicketMaster.fromCSV(line, trainService, filename);
                 if (tm != null) {
-                    ticketMasters.add(tm);
+                    LocalDateTime currtime = LocalDateTime.now();
+                    LocalDateTime trainTime = tm.getAssignedTrain().getDepartureTime();
+                    if(currtime.isAfter(trainTime)){
+                        ticketMasterstoEdit.add(tm);
+                    }
+                    else {
+                        ticketMasters.add(tm);
+                    }
                 }
             }
+        }
+        for(TicketMaster tm : ticketMasterstoEdit){
+            tm.setAssignedTrain(trainService.getTrainById(0), "inactive");
+            tm.setStatus("inactive");
+            ticketMasters.add(tm);
         }
         return ticketMasters;
     }
@@ -72,10 +87,10 @@ public class TicketMasterHandler {
         // If ticket was updated, replace original file; otherwise, delete temp file
         if (updated) {
             Files.move(tempFile, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Ticket " + ticketMasterId + " updated successfully.");
+            System.out.println("TicketMaster " + ticketMasterId + " updated successfully.");
         } else {
             Files.delete(tempFile);
-            System.out.println("Ticket " + ticketMasterId + " not found.");
+            System.out.println("TicketMaster " + ticketMasterId + " not found.");
         }
     }
 }
