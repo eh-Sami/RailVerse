@@ -109,7 +109,6 @@ public class PassengerLoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("passenger_signup.fxml"));
             Parent root = loader.load();
 
-            // Pass the passengerService to the signup controller
             PassengerSignupController controller = loader.getController();
             controller.setPassengerService(passengerService);
             controller.setTicketService(ticketService);

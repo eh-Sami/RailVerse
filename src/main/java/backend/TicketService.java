@@ -12,13 +12,6 @@ public class TicketService {
     TrainService trainService;
     PassengerService passengerService;
 
-    /**
-     * Constructor to initialize TicketService with a filename.
-     * It reads existing tickets from the file.
-     *
-     * @param currentfilename the name of the file containing ticket data
-     * @throws IOException if there is an error reading the file
-     */
     public TicketService(String currentfilename, String previousfilename, PassengerService passengerService, TrainService trainService) throws IOException {
         this.currfilename = currentfilename;
         this.prevfilename = previousfilename;
@@ -111,9 +104,7 @@ public class TicketService {
             }
         }
         if(found){
-//            TicketFileHandler.writeTickets(filename, ticketList);
             TicketFileHandler.updateTicket(currfilename, ticketId + "", t.toCSV());
-//            TicketFileHandler.writeTickets(currfilename, ticketList);
             reloadTicketsFromFile();
             saveAllTickets();
 

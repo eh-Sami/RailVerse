@@ -41,28 +41,23 @@ public class PassengerFileHandler {
     }
 
     public static void updatePassenger(String filePath, String passengerId, String newLine) throws IOException {
-        // Create a temporary file to store updated content
         Path tempFile = Files.createTempFile(null, ".tmp");
         boolean updated = false;
 
-        // Use try-with-resources to automatically close reader and writer
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile.toFile()))) {
             String line;
-            // Read each line from the original file
             while ((line = reader.readLine()) != null) {
-                // Check if the line starts with ticketId followed by a comma, ignoring leading/trailing whitespace
                 if (line.trim().startsWith(passengerId + ",")) {
-                    writer.write(newLine); // Write the updated line
+                    writer.write(newLine);
                     writer.newLine();
                     updated = true;
                 } else {
-                    writer.write(line); // Copy the original line unchanged
+                    writer.write(line);
                     writer.newLine();
                 }
             }
         } catch (IOException e) {
-            // Clean up temporary file on error and rethrow exception
             try {
                 Files.deleteIfExists(tempFile);
             } catch (IOException ex) {
@@ -71,7 +66,6 @@ public class PassengerFileHandler {
             throw e;
         }
 
-        // If ticket was updated, replace original file; otherwise, delete temp file
         if (updated) {
             Files.move(tempFile, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Ticket " + passengerId + " updated successfully.");

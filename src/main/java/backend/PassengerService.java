@@ -19,12 +19,11 @@ public class PassengerService {
     }
 
     public Passenger signUp(String name, String nid, String email, String address, String password) {
-        // Validate input
         if(!User.emailValidityCheck(email) || !User.nidValidityCheck(nid) || !User.passwordValidityCheck(password)) {
             System.out.println("Invalid input! Please ensure all fields are filled correctly.");
             return null;
         }
-        int id = passengerList.size() + 1000; // Simple ID generation
+        int id = passengerList.size() + 1000;
         Passenger newPassenger = new Passenger(id, name, nid, email, address, password, 0, trainService, filename);
         if (addPassenger(newPassenger)) {
             return newPassenger;

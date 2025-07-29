@@ -193,11 +193,9 @@ public class TrainOperatorDashboardController {
             private final Button assignButton = new Button("Assign");
             {
                 assignButton.setOnAction(event -> {
-                    TicketMaster ticketMaster = getTableRow().getItem(); // Get the TicketMaster object from the row
+                    TicketMaster ticketMaster = getTableRow().getItem();
                     if (ticketMaster != null) {
-                        // Show a dialog asking for the Train ID
                         showTrainIdDialog(ticketMaster);
-                        // Update the row or refresh the table after assignment
                         table.refresh();
                     }
                 });
@@ -207,9 +205,9 @@ public class TrainOperatorDashboardController {
             public void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
-                    setGraphic(null); // Clear the button when the row is empty
+                    setGraphic(null);
                 } else {
-                    setGraphic(assignButton); // Set the button for the row
+                    setGraphic(assignButton);
                 }
             }
         });

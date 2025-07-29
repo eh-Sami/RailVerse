@@ -11,13 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicketFileHandler {
-    /**
-     * Reads tickets from a CSV file and returns a list of Ticket objects.
-     *
-     * @param currfilename the name of the file to read from
-     * @return a list of Ticket objects
-     * @throws IOException if there is an error reading the file
-     */
     public static List<Ticket> readTickets(String currfilename, String prevfilename, PassengerService passengerService, TrainService trainService) throws IOException {
         List<Ticket> ticketList = new ArrayList<>();
         List<Ticket> linesToKeep = new ArrayList<>();
@@ -68,13 +61,7 @@ public class TicketFileHandler {
         reader.close();
         return ticketList;
     }
-    /**
-     * Writes(Overwrite) a list of Ticket objects to a CSV file.
-     *
-     * @param filename the name of the file to write to
-     * @param ticketList the list of Ticket objects to write
-     * @throws IOException if there is an error writing to the file
-     */
+
     public static void writeTickets(String filename, List<Ticket> ticketList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         for (Ticket ticket : ticketList) {
@@ -90,13 +77,7 @@ public class TicketFileHandler {
         writer.newLine();
         writer.close();
     }
-    /**
-     * Appends a list of Ticket objects to a CSV file.
-     *
-     * @param filename the name of the file to append to
-     * @param ticketList the list of Ticket objects to append
-     * @throws IOException if there is an error writing to the file
-     */
+
     public static void appendTickets(String filename, List<Ticket> ticketList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
         for (Ticket ticket : ticketList) {
@@ -104,13 +85,6 @@ public class TicketFileHandler {
             writer.newLine();
         }
     }
-    /**
-     * Appends a single Ticket object to a CSV file.
-     *
-     * @param filename the name of the file to append to
-     * @param ticket the Ticket object to append
-     * @throws IOException if there is an error writing to the file
-     */
 
     public static void appendTicket(String filename, Ticket ticket) throws IOException {
 
@@ -120,31 +94,20 @@ public class TicketFileHandler {
         writer.close();
     }
 
-    /**
-     * Updates the information of a single ticket in a text file.
-     *
-     * @param filePath  Path to the text file containing ticket information.
-     * @param ticketId  The unique ID of the ticket to update.
-     * @param newLine   The new information for the ticket, formatted as a string (e.g., "12345,new_info1,new_info2,new_info3").
-     * @throws IOException If an I/O error occurs during file operations.
-     */
     public static void updateTicket(String filePath, String ticketId, String newLine) throws IOException {
-        // Create a temporary file to store updated content
         Path tempFile = Files.createTempFile(null, ".tmp");
         boolean updated = false;
 
-        // Use try-with-resources to automatically close reader and writer
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile.toFile()))) {
             String line;
-            // Read each line from the original file
             while ((line = reader.readLine()) != null) {
                 if (line.trim().startsWith(ticketId + ",")) {
-                    writer.write(newLine); // Write the updated line
+                    writer.write(newLine);
                     writer.newLine();
                     updated = true;
                 } else {
-                    writer.write(line); // Copy the original line unchanged
+                    writer.write(line);
                     writer.newLine();
                 }
             }
@@ -166,7 +129,6 @@ public class TicketFileHandler {
         }
     }
 
-    // changed on Friday
         public static Ticket findTicketById(String filePath, String ticketId) throws IOException {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -176,7 +138,7 @@ public class TicketFileHandler {
                 }
             }
             reader.close();
-            return null; // Ticket not found
+            return null;
         }
 }
 

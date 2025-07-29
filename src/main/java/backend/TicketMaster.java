@@ -21,9 +21,6 @@ public class TicketMaster extends User {
         return status;
     }
 
-    /**
-     * Getters and Setter
-     */
     public String getRole(){
         return "TicketMaster";
     }
@@ -56,11 +53,6 @@ public class TicketMaster extends User {
         return "TicketMaster{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + '}';
     }
 
-    /**
-     * Validates a ticket for a passenger.
-     * @param ticket
-     * @return
-     */
     public boolean
     validateTicket(Ticket ticket) {
 //        List<Ticket> tickets = ticketService.getAllTickets();
@@ -100,12 +92,7 @@ public class TicketMaster extends User {
         }
 
     }
-    /**
-     * Adds a fine to a passenger's account.
-     * @param passenger The passenger to whom the fine will be added.
-     * @param fineAmount The amount of the fine to be added.
-     * @return true if the fine was added successfully, false otherwise.
-     */
+
     public boolean addFineToPassenger(Passenger passenger, double fineAmount) {
         if (fineAmount <= 0) {
             System.out.println("Fine amount must be positive.");
@@ -185,18 +172,10 @@ public class TicketMaster extends User {
         return true;
     }
 
-    /**
-     * Converts the TicketMaster object to a CSV string.
-     * @return A CSV representation of the TicketMaster.
-     */
     public String toCSV() {
         return id + "," + name + "," + nid + "," + email + "," + password + "," + assignedTrain.getId() + "," + status + "," + address;
     }
-    /**
-     * Parses a CSV string to create a TicketMaster object.
-     * @param line CSV string representing a TicketMaster.
-     * @return TicketMaster object or null if the input is invalid.
-     */
+
     public static TicketMaster fromCSV(String line, TrainService trainService, String ticketMasterFilePath) {
 //        String[] parts = line.split(",");
 //        if (parts.length < 4) return null;
@@ -212,7 +191,6 @@ public class TicketMaster extends User {
 //            System.out.println("Error parsing TicketMaster from CSV: " + e.getMessage());
 //            return null;
 //        }
-
 
         String[] parts = line.split(",");
         if (parts.length < 8) return null;

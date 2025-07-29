@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Passenger extends User{
-    private TrainService trainService; // to see available trains and book tickets
+    private TrainService trainService; // to see available trains and book ticket
     private List<Ticket> myTickets = new ArrayList<>(); // storing current tickets
     private List<Ticket> previousTickets = new ArrayList<>(); // storing previous tickets history
     private double fine = 0;
@@ -84,12 +84,7 @@ public class Passenger extends User{
         return myTickets;
     }
 
-    /**
-     * Adds a ticket to the previous tickets list and removes it from the current tickets list.
-     * This is useful for maintaining a history of trips that have been completed.
-     * @param ticket The ticket to be added to previous tickets.
-     * @return true if the ticket was successfully added, false otherwise.
-     */
+
     public boolean completedTrip(Ticket ticket) {
         if (ticket != null) {
             myTickets.remove(ticket); // remove from current tickets
@@ -130,7 +125,7 @@ public class Passenger extends User{
                 ticketToCancel.setPassengerId(0);
                 int trainId = ticketToCancel.getTrainId();
                 Train train = trainService.getTrainById(trainId);
-                train.cancelTicket(ticketId); // assuming this method exists in TrainService
+                train.cancelTicket(ticketId);
                 myTickets.remove(ticketToCancel);
                 System.out.println("Ticket with ID " + ticketId + " cancelled successfully.");
             } else {

@@ -89,8 +89,6 @@ public class PassengerDashboardController {
             return;
         }
 
-
-        // TODO: Load available trains screen using these values
         List<Train> filteredTrains = trainService.getTrainsBySource(from, to, date);
         System.out.println(filteredTrains);
 

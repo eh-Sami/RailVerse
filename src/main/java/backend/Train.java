@@ -51,19 +51,16 @@ public class Train {
         compartments = new ArrayList<>();
         if(LocalDateTime.now().isBefore(departureTime)) {
             for (int i = 0; i < compartmentCount; i++) {
-                Ticket[][] compartment = new Ticket[6][4]; // 6 rows, 4 columns
+                Ticket[][] compartment = new Ticket[6][4];
 
                 for (int row = 0; row < 6; row++) {
                     for (int col = 0; col < 4; col++) {
-                        // Create a new Ticket object for each seat
                         String ticketId = String.valueOf(createTicketId(row, col, i));
                         Ticket ticket = TicketFileHandler.findTicketById(ticketFilePath, ticketId);
                         System.out.println(ticketId);
 
                         if (ticket == null) {
-                            // Otherwise, create a new Ticket object)
                             compartment[row][col] = new Ticket(createTicketId(row, col, i), 0, this.Id, "" + (char) ('A' + i) + (row * 4 + col + 1), null, "Vacant", 0.0, 100.0); // Initialize with null
-                            // Append the ticket to the file
                             System.out.println("inside if" + (char)('A' + i));
                             TicketFileHandler.appendTicket(ticketFilePath, compartment[row][col]);
                         } else {
@@ -71,7 +68,6 @@ public class Train {
                         }
                     }
                 }
-                // Add the compartment to the compartments list
                 compartments.add(compartment);
             }
         }
@@ -152,7 +148,6 @@ public class Train {
                         ticket.setBookingDate(LocalDateTime.now());
                         ticket.setPassenger(passenger);
                         ticket.setPrice(baseFare);
-//                        passenger.addTicket(ticket); // Add ticket to passenger's list
 
                         try {
                             TicketFileHandler.updateTicket(ticketFilePath, String.valueOf(ticket.getTicketId()), ticket.toCSV());
@@ -160,12 +155,12 @@ public class Train {
                             throw new RuntimeException(e);
                         }
 
-                        return ticket; // Return the booked ticket
+                        return ticket;
                     }
                 }
             }
         }
-        return null; // Seat not found or already booked
+        return null;
     }
 
     public boolean cancelTicket(Object t) {
@@ -260,7 +255,6 @@ public class Train {
     public String getDepartureTimeString() {
         return departureTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
-    // Factory: Create Train object from CSV line
     public static Train fromCSV(String line, String trainFilePath, String ticketFilePath) {
         if (line == null || line.isEmpty()) return null;
 

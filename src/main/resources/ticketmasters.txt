@@ -1,2 +1,2 @@
-1,aditya,1234567980,master1@railway.com,admin234,109,active,Azimpur, Dhaka,
+1,aditya,1234567980,master1@railway.com,admin234,0,inactive,Azimpur, Dhaka,
 2,Master2,1234567890,chief@railway.com,admin456,101,active,Ishwardi, Pabna,

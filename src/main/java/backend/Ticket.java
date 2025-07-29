@@ -11,7 +11,7 @@ public class Ticket{
     private int trainId;
     private String seatNumber;
     private LocalDateTime bookingDate;
-    private String status; // status of the ticket: "Booked", "Cancelled", "Completed"
+    private String status;
     private double fineAmount;
     private double price;
 
@@ -30,9 +30,7 @@ public class Ticket{
         this.status = status;
     }
 
-    /**
-     * Getters and Setters for Ticket attributes.
-     */
+
     public long getTicketId() {
         return ticketId;
     }
@@ -81,21 +79,14 @@ public class Ticket{
         return "Ticket{" + "ticketId: " + ticketId + ", passengerId: " + passengerId + ", trainId: " + trainId + ", seatNumber: " + seatNumber + ", bookingDate: " + dateStr + ", status: " + status + ", fineAmount: " + fineAmount + ", price: " + price + '}';
     }
 
-    /**
-     * Converts the Ticket object to a CSV string format to be used for file storage.
-     * @return CSV representation of the Ticket.
-     */
+
     public String toCSV() {
         String dateStr = (bookingDate != null) ? bookingDate.format(formatter) : "null";
         return ticketId + "," + passengerId + "," + trainId + "," + seatNumber + ','
                 + dateStr + "," + status + "," + fineAmount + "," + price;
     }
 
-    /**
-     * Parses a CSV string to create a Ticket object.
-     * @param line CSV string representing a Ticket.
-     * @return Ticket object or null if the input is invalid.
-     */
+
     public static Ticket fromCSV(String line, PassengerService passengerService) {
         String[] parts = line.split(",");
         if (parts.length < 8) return null;

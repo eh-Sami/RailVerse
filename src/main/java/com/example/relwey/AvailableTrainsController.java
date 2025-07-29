@@ -201,7 +201,6 @@ public class AvailableTrainsController {
             ticket.setBookingDate(LocalDateTime.now());
             ticket.setPrice(train.getPrice());
 
-            // Save the full list (which includes this ticket)
             ticketService.saveAllTickets();
             ticketService.reloadTicketsFromFile();
 
@@ -213,9 +212,6 @@ public class AvailableTrainsController {
             compartmentSelector.getItems().clear();
             compartmentSelector.setDisable(true);
             compartmentSelector.setPromptText("Select a train");
-
-
-            // Reset seat selection
             selectedSeat = -1;
             loadData();
 
@@ -231,8 +227,8 @@ public class AvailableTrainsController {
     private void showCompartmentSeatMap(Train train, int compartmentNumber) {
         ticketService.reloadTicketsFromFile();
 
-        boolean[] seatAvailability = new boolean[24]; // 24 seats per compartment
-        for (int i = 0; i < 24; i++) seatAvailability[i] = true; // All available initially
+        boolean[] seatAvailability = new boolean[24];
+        for (int i = 0; i < 24; i++) seatAvailability[i] = true;
 
         List<Ticket> allTickets = ticketService.getAllTickets();
         List<Ticket> ticketsOfThisTrain = new ArrayList<>();
@@ -259,11 +255,11 @@ public class AvailableTrainsController {
         }
         System.out.println(seatAvailability[0] + "," + seatAvailability[1] + "," + seatAvailability[2] + "," + seatAvailability[3]);
 
-        showSeatMap(seatAvailability, train, compartmentNumber); // reuse existing function
+        showSeatMap(seatAvailability, train, compartmentNumber);
     }
 
 
-    private int selectedSeat = -1;  // Track selected seat globally
+    private int selectedSeat = -1;
 
     public void showSeatMap(boolean[] seatAvailability, Train train, int compartment) {
         seatGrid.getChildren().clear();
@@ -305,9 +301,9 @@ public class AvailableTrainsController {
             if (node instanceof Button) {
                 Button btn = (Button) node;
                 if (btn.getText().equals("S" + seatNumber)) {
-                    btn.setStyle("-fx-background-color: deepskyblue;"); // selected seat
+                    btn.setStyle("-fx-background-color: deepskyblue;");
                 } else if (!btn.isDisabled()) {
-                    btn.setStyle("-fx-background-color: lightgreen;"); // available seat
+                    btn.setStyle("-fx-background-color: lightgreen;");
                 }
             }
         }

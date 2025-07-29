@@ -8,7 +8,6 @@
     <children>
         <Label layoutX="405.0" layoutY="14.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Available Trains" />
 
-        <!-- Train Table -->
         <TableView fx:id="trainTable" layoutX="28.0" layoutY="57.0" prefHeight="182.0" prefWidth="902.0">
             <columns>
                 <TableColumn fx:id="trainNameCol" prefWidth="153.0" text="Train Name" />
@@ -16,19 +15,15 @@
                 <TableColumn fx:id="FromCol" prefWidth="141.0" text="From" />
                 <TableColumn fx:id="ToCol" prefWidth="111.0" text="To" />
                 <TableColumn fx:id="departureTimeCol" prefWidth="183.0" text="Departure Time" />
-<!--                <TableColumn fx:id="seatsCol" prefWidth="128.0" text="Available Seats" />-->
                 <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="94.0" text="Price" />
             </columns>
         </TableView>
 
-        <!-- Seat Map Label -->
         <Label layoutX="181.0" layoutY="246.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Seat Map" />
         <ComboBox fx:id="compartmentSelector" layoutX="279.0" layoutY="246.0" prefHeight="25.0" prefWidth="117.0" promptText="Compartment" />
 
-        <!-- GridPane for Seat Map -->
         <GridPane fx:id="seatGrid" hgap="10" layoutX="73.0" layoutY="283.0" prefHeight="243.0" prefWidth="359.0" vgap="10" />
 
-        <!-- Buttons -->
         <Button fx:id="bookButton" layoutX="465.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleBookTrain" prefWidth="180.0" text="Book Selected Train" />
 
         <Button fx:id="backButton" layoutX="505.0" layoutY="379.0" mnemonicParsing="false" onAction="#handleBack" prefWidth="100.0" text="Back" />
